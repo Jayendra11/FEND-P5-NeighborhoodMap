@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neighborhood Map</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <body>
+	<div id="map"></div>
+
+  <script src="js/knockout-3.4.0.js"></script>
+  <!--Google map error function to show when map cannot be loaded-->
+  <script>
+    function mapError() {
+      alert("Google map failed to load, please try again later.");
+    }
+  </script>
+  <script src="js/app.js"></script>
+  <!--Google map API key and call error handling on error-->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxev7kuHPMrlXH90OxnY2WBDS02HEzyFE&callback=initMap" onerror="mapError()"></script>
+  </body>
+</html>
