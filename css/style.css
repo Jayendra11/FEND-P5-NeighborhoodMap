@@ -7,3 +7,80 @@ html, body {
 #map {
   height: 100%;
 }
+#menu {
+  padding-top: 15px;
+  position: fixed;
+  left: 20px;
+  bottom: 80px;
+  font-family: sans-serif;
+  background-color: #fff;
+}
+.search-box {
+  width:90%;
+  font-size: 1.2em;
+  border: 2px solid #d3d3d3;
+  border-radius: 2px;
+  margin-left: 20px;
+  padding-left: 5px;
+}
+/*Change color to signal you can input text*/
+.search-box:focus {
+  outline: none;
+  border: 2px solid #0080FF;
+}
+/*Change cursor to show list is active and can be clicked*/
+#listItems {
+  cursor: pointer;
+  display: block;
+  font-size: 1.2em;
+  padding: 0 10px;
+  text-decoration: none;
+  color: #0080FF;
+}
+ul {
+  list-style: none;
+  background-color: #FFFFFF;
+}
+ul li {
+  display: block;
+  text-decoration: none;
+  line-height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+  color: #0080FF;
+}
+@media (max-width: 1000px) {
+  #map {
+    height: 100%;
+  }
+  #menu {
+    padding-top: 10px;
+    position: fixed;
+    width: 100%;
+    left: 0px;
+    bottom: 0px;
+    font-family: sans-serif;
+    background-color: #fff;
+  }
+}
+@media (max-width: 650px) {
+  #map {
+    height: 80%;
+    width: 100%;
+  }
+  #menu {
+    padding-top: 5px;
+    position: fixed;
+    width: 100%;
+    left: 0px;
+    bottom: 0px;
+    font-family: sans-serif;
+    background-color: #fff;
+  }
+    #listItems {
+    cursor: pointer;
+    display: block;
+    font-size: 1em;
+    padding: 0px;
+  }
+}
