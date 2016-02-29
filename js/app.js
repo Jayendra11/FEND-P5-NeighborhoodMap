@@ -87,6 +87,17 @@ var viewModel = function () {
     });
 
     placeItem.marker = marker;
+
+    //Add bounce animation to markers when clicked
+    placeItem.marker.addListener('click', toggleBounce);
+    function toggleBounce() {
+      if (placeItem.marker.getAnimation() !== null) {
+        placeItem.marker.setAnimation(null);
+      } else {
+        placeItem.marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function(){ placeItem.marker.setAnimation(null); }, 2100);
+      }
+    }
   });
 };
 
