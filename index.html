@@ -12,6 +12,19 @@
   </head>
   <body>
 	<div id="map"></div>
+  <div id="menu">
+    <div id = "filter">
+      <!--Bind list to query search-->
+      <input class="search-box" placeholder="Search…" type="search"  data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+    </div>
+    <!--Show only results matching query search-->
+    <ul id="list-view" data-bind="foreach:filteredPlaces">
+      <li>
+        <!--Bind list items to placeItem names-->
+        <a href="#" id="listItems"><strong data-bind="text:name, click: $root.markerConnect"></strong></a>
+      </li>
+    </ul>
+  </div>
 
   <script src="js/knockout-3.4.0.js"></script>
   <!--Google map error function to show when map cannot be loaded-->
