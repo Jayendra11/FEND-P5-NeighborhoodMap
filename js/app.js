@@ -37,6 +37,7 @@ var locations = [
   marker: ''
   }
 ];
+
 //Place constructor uses ko.observable so view is automatically updated
 var Place = function (data) {
   this.name = ko.observable(data.name);
@@ -48,14 +49,10 @@ var Place = function (data) {
 };
 
 /**View Model**/
-
 function initMap () {
-
   var viewModel = function () {
-
     //Self alias provides lexical scope
     var self = this;
-
     //Center map on Tampa, FL
     var mapOptions = {
       zoom: 12,
@@ -87,12 +84,10 @@ function initMap () {
         link: placeItem.website,
         animation: google.maps.Animation.DROP
       });
-
       placeItem.marker = marker;
-
       //Add bounce animation to markers
-      placeItem.marker.addListener('click', toggleBounce);
 
+      placeItem.marker.addListener('click', toggleBounce);
       function toggleBounce() {
         if (placeItem.marker.getAnimation() !== null) {
           placeItem.marker.setAnimation(null);
@@ -106,19 +101,15 @@ function initMap () {
       var windowNames = placeItem.name;
       var windowWebsite = placeItem.website;
       var windowAddresses = placeItem.address;
-
       //Create new infowindow
       var infoWindow = new google.maps.InfoWindow({content: contentString});
-
       //Open infoWindow when marker is clicked
-      google.maps.event.addListener(placeItem.marker, 'click', function() {
 
+      google.maps.event.addListener(placeItem.marker, 'click', function() {
         //Use encodeURI method to replace symbols and spaces with UTF-8 encoding of character
         var formatName = encodeURI(placeItem.name);
-
         //Wikipedia API request URL
         var wikiUrl = "http://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + formatName + "&limit=1&redirects=return&format=json";
-
         $.ajax ({
           url: wikiUrl,
           dataType: "jsonp",
@@ -162,7 +153,7 @@ function initMap () {
     //Make filter search input an observable
     self.query= ko.observable('');
 
-    //Make a ko.computed item for filtering places
+    //ko.computed is used to filter and return items that match the query string input by users
     self.filteredPlaces = ko.computed(function(placeItem) {
       var filter = self.query().toLowerCase();
       //If searchbox empty return the full list and set all markers visible
@@ -170,24 +161,19 @@ function initMap () {
         self.markerArray().forEach(function(placeItem) {
           placeItem.marker.setVisible(true);
         });
-      return self.markerArray();
-      //Else use startsWith to compare search term to list
+        return self.markerArray();
+      //Else use startsWith to compare search term to list and make visible those that match
       } else {
-          return ko.utils.arrayFilter(self.markerArray(), function(placeItem) {
-            searchTerm = strStartsWith(placeItem.name.toLowerCase(), filter);
-            //Show markers and list items that match the search term
+        return ko.utils.arrayFilter(self.markerArray(), function(placeItem) {
+          searchTerm = strStartsWith(placeItem.name.toLowerCase(), filter);
+          placeItem.marker.setVisible(false);
             if (searchTerm) {
               placeItem.marker.setVisible(true);
               return searchTerm;
             }
-            //Hide markers that don't match the search term.
-            else {
-              placeItem.marker.setVisible(false);
-            }
-          });
-        }
-      }, self);
-    //Called to filter list by comparing search term to places on list
+        });
+      }
+    }, self);
     var strStartsWith = function (string, startsWith) {
       string = string || "";
       if (startsWith.length > string.length) {
@@ -196,6 +182,7 @@ function initMap () {
       return string.substring(0, startsWith.length) === startsWith;
     };
   };
+
   //Call the viewModel function
   ko.applyBindings(new viewModel());
 }
