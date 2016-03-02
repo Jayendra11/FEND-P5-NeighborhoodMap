@@ -108,12 +108,18 @@ function initMap () {
       google.maps.event.addListener(placeItem.marker, 'click', function() {
         //Use encodeURI method to replace symbols and spaces with UTF-8 encoding of character
         var formatName = encodeURI(placeItem.name);
+
         //Wikipedia API request URL
         var wikiUrl = "http://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + formatName + "&limit=1&redirects=return&format=json";
+        var wikiRequestTimeout = setTimeout(function(){
+           $wikiElem.text("Failed to get wikipedia resources");
+        }, 8000);
+
         $.ajax ({
           url: wikiUrl,
           dataType: "jsonp",
-          success: function ( response ){
+          jsonp: "callback",
+          success: function (response){
             var articleList = response[1];
             //If an article is found, populate infowindow with response and location's website address
             if (articleList.length > 0) {
@@ -123,24 +129,15 @@ function initMap () {
                 contentString = '<div id="content">' + windowNames + '<p>' + windowAddresses + '</p>' + '<p>' + response[2] + '</p>' + '<a href=" ' + url + '">' + url + '</a>' + '</div>';
                 infoWindow.setContent(contentString);
                 }
-                //No article found, provide link to location's website and tell user no Wikipedia articles found
-                } else {
-                  var url = windowWebsite;
-                  contentString = '<div id="content">' + windowNames + '<p>' + windowAddresses + '</p>' +  '<p>' + 'No articles found on Wikipedia'+ '</p>' + '</div>';
-                  infoWindow.setContent(contentString);
-                }
+                if (openedInfoWindow != null) openedInfoWindow.close();
+                infoWindow.open(map, placeItem.marker);
+                openedInfoWindow = infoWindow;
+                google.maps.event.addListener(infoWindow, 'closeclick', function() {
+                  openedInfoWindow = null;
+                });
               }
-            //Handle error
-            }).error(function(e){
-              contentString = '<div id="content">' + windowNames + '<p>' + windowAddresses + '</p>' + '<p>' + 'Failed to reach Wikipedia'+ '</p>' + '</div>';
-              infoWindow.setContent(contentString);
-            });
-          //If infoWindow already open close it before opening for current location. After opening infoWindow set flag.
-          if (openedInfoWindow != null) openedInfoWindow.close();
-          infoWindow.open(map, this);
-          openedInfoWindow = infoWindow;
-          google.maps.event.addListener(infoWindow, 'closeclick', function() {
-          openedInfoWindow = null;
+            clearTimeout(wikiRequestTimeout);
+          }
         });
       });
     });
@@ -174,6 +171,7 @@ function initMap () {
         });
       }
     }, self);
+
     var strStartsWith = function (string, startsWith) {
       string = string || "";
       if (startsWith.length > string.length) {
@@ -181,8 +179,8 @@ function initMap () {
       }
       return string.substring(0, startsWith.length) === startsWith;
     };
-  };
 
+  };
   //Call the viewModel function
   ko.applyBindings(new viewModel());
 }
