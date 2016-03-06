@@ -113,7 +113,7 @@ function initMap () {
         //Wikipedia API request URL
         var wikiUrl = "http://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + formatName + "&limit=1&redirects=return&format=json";
         var wikiRequestTimeout = setTimeout(function(){
-           $wikiElem.text("Failed to get wikipedia resources");
+           alert("Failed to get Wikipedia resource");
         }, 8000);
 
         $.ajax ({
@@ -122,15 +122,27 @@ function initMap () {
           jsonp: "callback",
           success: function (response){
             var articleList = response[1];
-            //If an article is found, populate infowindow with response and location's website address
-            if (articleList.length > 0) {
+            //If no article is found alert user and supply location website URL
+              if (articleList.length <= 0) {
+                var url = windowWebsite;
+                contentString = '<div id="content">' + windowNames + '<p>' + windowAddresses + '</p>' +  '<p>' + 'No articles found on Wikipedia'+ '</p>' + '<a href=" ' + url + '" target="_blank">' + url + '</a>' + '</div>';
+                infoWindow.setContent(contentString);
+                if (openedInfoWindow !== null) openedInfoWindow.close();
+                infoWindow.open(map, placeItem.marker);
+                openedInfoWindow = infoWindow;
+                google.maps.event.addListener(infoWindow, 'closeclick', function() {
+                  openedInfoWindow = null;
+                });
+              }
+              //If an article is found, populate infowindow with response and location's website address
+              else {
               for (var i=0; i<articleList.length; i++) {
                 articleStr = articleList[i];
                 var url = windowWebsite;
-                contentString = '<div id="content">' + windowNames + '<p>' + windowAddresses + '</p>' + '<p>' + response[2] + '</p>' + '<a href=" ' + url + '">' + url + '</a>' + '</div>';
+                contentString = '<div id="content">' + windowNames + '<p>' + windowAddresses + '</p>' + '<p>' + response[2] + '</p>' + '<a href=" ' + url + '" target="_blank">' + url + '</a>' + '</div>';
                 infoWindow.setContent(contentString);
                 }
-                if (openedInfoWindow != null) openedInfoWindow.close();
+                if (openedInfoWindow !== null) openedInfoWindow.close();
                 infoWindow.open(map, placeItem.marker);
                 openedInfoWindow = infoWindow;
                 google.maps.event.addListener(infoWindow, 'closeclick', function() {
