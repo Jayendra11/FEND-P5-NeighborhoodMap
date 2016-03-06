@@ -11,7 +11,6 @@ The browser shows a Google Map of Tampa, FL with several attractions as markers 
 To run project from your own computer, download the repository. Double-click on the index file.
 
 ## Resources Used For This Project
-=================
 - Knockout web framework (knockoutjs.com)
 - Google Maps API
 - Wikipedia API
