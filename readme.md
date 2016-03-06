@@ -6,9 +6,9 @@ The requirements for this project are to develop a single page application featu
 Usage Instructions
 ==================
 
-The browser shows a Google Map of Tampa, FL with several attractions as markers on the map. Use the search box to filter the list and the markers based on the search term. Click on a marker to see information provided by the Wikipedia API.
+The browser shows a Google Map of Tampa, FL with several attractions designated with markers on the map. Use the search box to filter the list and the markers based on the search term. Click on a marker to see information provided by the Wikipedia API.
 
-To run project from your own computer, download the repository. Double-click on the index file.
+To run project from your own computer, download the repository. To open the website, double-click on the index.html file which will open the project in a web browser.
 
 ## Resources Used For This Project
 - Knockout web framework (knockoutjs.com)
