@@ -85,8 +85,8 @@ function initMap () {
         animation: google.maps.Animation.DROP
       });
       placeItem.marker = marker;
-      //Add bounce animation to markers
 
+      //Add bounce animation to markers
       placeItem.marker.addListener('click', toggleBounce);
       function toggleBounce() {
         if (placeItem.marker.getAnimation() !== null) {
@@ -101,6 +101,7 @@ function initMap () {
       var windowNames = placeItem.name;
       var windowWebsite = placeItem.website;
       var windowAddresses = placeItem.address;
+
       //Create new infowindow
       var infoWindow = new google.maps.InfoWindow({content: contentString});
       //Open infoWindow when marker is clicked
@@ -139,6 +140,7 @@ function initMap () {
             clearTimeout(wikiRequestTimeout);
           }
         });
+        return false;
       });
     });
 
