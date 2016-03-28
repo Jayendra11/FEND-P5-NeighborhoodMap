@@ -35,6 +35,41 @@ var locations = [
   latitude: 27.9472534,
   longitude: -82.4601495,
   marker: ''
+  },
+  {name: 'Lowry Park Zoo',
+  address: '1101 W Sligh Ave, Tampa, FL 33604',
+  website: 'http://www.lowryparkzoo.org',
+  latitude: 28.012967,
+  longitude: -82.46937,
+  marker: '',
+  },
+  {name: 'Ybor City Museum State Park',
+  address: '1818 E 9th Ave, Tampa, FL 33605',
+  website: 'http://www.ybormuseum.org/',
+  latitude: 27.965021,
+  longitude: -82.435094,
+  marker: ''
+  },
+  {name: 'Cracker Country',
+  address: '4800 US-301, Tampa, FL 33610',
+  website: 'http://www.crackercountry.org/',
+  latitude: 27.987732,
+  longitude: -82.363279,
+  marker: ''
+  },
+  {name: 'Tampa Museum of Art',
+  address: '120 W Gasparilla Plaza, Tampa, FL 33602',
+  website: 'http://tampamuseum.org/',
+  latitude: 27.949470,
+  longitude: -82.462603,
+  marker: ''
+  },
+  {name: "Glazer Children's Museum",
+  address: '110 W Gasparilla Plaza, Tampa, FL 33602',
+  website: 'http://glazermuseum.org/',
+  latitude: 27.949577,
+  longitude: -82.461494,
+  marker: ''
   }
 ];
 
